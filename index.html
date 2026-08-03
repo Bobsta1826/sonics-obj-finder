@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080d1b">
+  <title>Sonics Object Finder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Sonics Object Finder home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><strong>SONICS</strong><small>OBJECT FINDER</small></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <button class="nav-button active">Finder</button>
+      <button class="nav-button" data-toast="Object maps are coming soon">Object Maps</button>
+      <button class="nav-button" data-toast="API documentation is coming soon">API</button>
+      <button class="icon-button" id="themeToggle" aria-label="Toggle light or dark mode">◐</button>
+    </nav>
+  </header>
+
+  <div class="notice"><span>LIVE DATABASE</span> Search every prop, structure, vehicle and item in one place. Click any row for full details.</div>
+
+  <main class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Folder navigation">
+      <div class="sidebar-head"><strong><span id="objectCount">0</span> objects</strong><button id="resetButton">Reset view</button></div>
+      <label class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Search objects..." autocomplete="off"><kbd>/</kbd></label>
+      <div class="mode-list" role="tablist" aria-label="Finder mode">
+        <button class="mode active" data-mode="finder"><span>⌁</span><b>Object Finder</b><small>Search the library</small></button>
+        <button class="mode" data-mode="favorites"><span>★</span><b>Favourites</b><small>Your pinned objects</small></button>
+        <button class="mode" data-mode="types"><span>&lt;/&gt;</span><b>Types Explorer</b><small>Browse by family</small></button>
+      </div>
+      <div class="folder-label">OBJECT FOLDERS</div>
+      <div id="folderTree" class="folder-tree"></div>
+      <div class="sidebar-foot"><span class="pulse"></span> Database online <small>v1.0.0</small></div>
+    </aside>
+
+    <section class="content">
+      <div class="toolbar">
+        <div><p class="eyebrow">DATABASE / <span id="crumb">ALL OBJECTS</span></p><h1 id="viewTitle">Object Finder</h1></div>
+        <div class="toolbar-actions">
+          <label>Show <select id="pageSize"><option>8</option><option selected>12</option><option>24</option></select></label>
+          <label>Platform <select id="platformFilter"><option>All</option><option>PC</option><option>Console</option></select></label>
+          <button id="exportButton">⇩ Export</button>
+          <button id="clearFavorites" class="hidden">Clear pins</button>
+        </div>
+      </div>
+
+      <div class="stats" aria-label="Database summary">
+        <article><small>OBJECTS SHOWN</small><strong id="shownCount">0</strong><span>Current results</span></article>
+        <article><small>CATEGORIES</small><strong id="categoryCount">0</strong><span>Object families</span></article>
+        <article><small>CONSOLE READY</small><strong id="consoleCount">0</strong><span>Compatible objects</span></article>
+      </div>
+
+      <div class="table-card">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Object</th><th><button class="sort" data-key="className">Class name ↕</button></th><th><button class="sort" data-key="displayName">In-game name ↕</button></th><th>Path</th><th>Compatibility</th><th><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody id="objectRows"></tbody>
+          </table>
+        </div>
+        <div id="emptyState" class="empty hidden"><div>⌕</div><h2>No objects found</h2><p>Try another keyword or clear the active filters.</p><button id="emptyReset">Reset filters</button></div>
+        <footer class="pagination"><span id="resultLabel">Showing 0 results</span><div><button id="prevPage">←</button><span id="pageLabel">Page 1</span><button id="nextPage">→</button></div></footer>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detailDialog">
+    <button class="dialog-close" id="dialogClose" aria-label="Close">×</button>
+    <div id="dialogArt" class="detail-art"></div>
+    <div class="detail-body"><p class="eyebrow" id="dialogCategory"></p><h2 id="dialogName"></h2><p id="dialogDescription"></p><dl id="dialogDetails"></dl><div class="dialog-actions"><button id="copyClass">Copy class name</button><button id="dialogPin">☆ Pin object</button></div></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
